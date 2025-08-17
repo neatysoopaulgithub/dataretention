@@ -1,0 +1,16 @@
+from datetime import datetime, timedelta
+
+user_logs = [
+    {"user": "alice", "last_active": "2023-01-01"},
+    {"user": "bob", "last_active": "2024-06-01"},
+]
+
+def check_data_retention(logs, retention_days=365):
+    expired = []
+    for log in logs:
+        last = datetime.strptime(log["last_active"], "%Y-%m-%d")
+        if datetime.now() - last > timedelta(days=retention_days):
+            expired.append(log["user"])
+    return expired
+
+print("Data retention expired for:", check_data_retention(user_logs))
